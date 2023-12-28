@@ -19,6 +19,20 @@ describe('OrganizationController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/organizations')
       .expect(200)
-      .expect([{ id: 1, name: 'Starter Kit Organization' },]);
+      .expect([{ id: "1", name: 'Starter Kit Organization' },]);
+  });
+  it('/organizations (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/organizations')
+      .send({ name: 'Starter Kit Organization 2' })
+      .expect(201)
+      .expect({ id: "2", name: 'Starter Kit Organization 2' });
+  });
+  it('/organizations/:id (PUT)', () => {
+    return request(app.getHttpServer())
+      .put('/organizations/1')
+      .send({ name: 'Starter Kit Organization 3' })
+      .expect(200)
+      .expect({ id: "1", name: 'Starter Kit Organization 3' });
   });
 });

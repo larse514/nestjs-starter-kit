@@ -15,10 +15,24 @@ describe('OrganizationController', () => {
     });
 
     describe('Organization Controller Tests', () => {
-        it('should return organizations', () => {
+        it('getOrganizations should return organizations', () => {
             expect(controller.getOrganizations()).toMatchObject([
-                { id: 1, name: 'Starter Kit Organization' },
+                { id: "1", name: 'Starter Kit Organization' },
             ]);
+        });
+        it('createOrganization should return organization', () => {
+            expect(controller.createOrganization({
+                name: 'Starter Kit Organization 2',
+            })).toMatchObject(
+                { id: "2", name: 'Starter Kit Organization 2' },
+            );
+        });
+        it('updateOrganization should return organization', () => {
+            expect(controller.updateOrganization("1", {
+                name: 'Starter Kit Organization 3',
+            })).toMatchObject(
+                { id: "1", name: 'Starter Kit Organization 3' },
+            );
         });
     });
 });
