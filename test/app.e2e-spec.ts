@@ -4,6 +4,8 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { AuthGuard } from '../src/auth/auth.guard';
 import { AuthGuardFake } from './auth.guard.fake';
+import { RolesGuardFake } from './roles.guard.fake';
+import { RolesGuard } from '../src/auth/rbac/roles.guard';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
@@ -13,6 +15,8 @@ describe('AppController (e2e)', () => {
     })
       .overrideProvider(AuthGuard)
       .useClass(AuthGuardFake)
+      .overrideProvider(RolesGuard)
+      .useClass(RolesGuardFake)
       .compile();
 
     app = moduleFixture.createNestApplication();

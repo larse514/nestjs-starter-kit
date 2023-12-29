@@ -4,7 +4,8 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { AuthGuardFake } from './auth.guard.fake';
 import { AuthGuard } from '../src/auth/auth.guard';
-
+import { RolesGuardFake } from './roles.guard.fake';
+import { RolesGuard } from '../src/auth/rbac/roles.guard';
 describe('OrganizationController (e2e)', () => {
   let app: INestApplication;
 
@@ -14,6 +15,8 @@ describe('OrganizationController (e2e)', () => {
     })
       .overrideProvider(AuthGuard)
       .useClass(AuthGuardFake)
+      .overrideProvider(RolesGuard)
+      .useClass(RolesGuardFake)
       .compile();
 
 
