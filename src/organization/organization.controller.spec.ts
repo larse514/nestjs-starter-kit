@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrganizationController } from './organization.controller';
 import { OrganizationService } from './organization.service';
+import { ConfigModule } from '@nestjs/config';
+import configuration from '../config/configuration';
 
 describe('OrganizationController', () => {
     let controller: OrganizationController;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
+            imports: [ConfigModule.forRoot({
+                load: [configuration],
+              })],
             controllers: [OrganizationController],
             providers: [OrganizationService],
         }).compile();

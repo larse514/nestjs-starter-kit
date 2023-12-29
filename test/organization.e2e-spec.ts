@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
+import { AuthGuardFake } from './auth.guard.fake';
+import { AuthGuard } from '../src/auth/auth.guard';
 
 describe('OrganizationController (e2e)', () => {
   let app: INestApplication;
@@ -9,7 +11,11 @@ describe('OrganizationController (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideProvider(AuthGuard)
+      .useClass(AuthGuardFake)
+      .compile();
+
 
     app = moduleFixture.createNestApplication();
     await app.init();

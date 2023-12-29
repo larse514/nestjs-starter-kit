@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import Organization from './organization.model';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class OrganizationService {
+
+    constructor(private configService: ConfigService) { }
 
     updateOrganization(id: string, name: string): Organization {
         return new Organization(id, name)
@@ -13,7 +16,7 @@ export class OrganizationService {
     }
 
     getOrganizations(): Organization[] {
-        // Logic to fetch organizations from the database or any other source
+        console.log(this.configService.get<string>('environment'));        
         return [{
             id: "1",
             name: 'Starter Kit Organization',
