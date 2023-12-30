@@ -1,0 +1,1 @@
+process.env.HELLO_VARIABLE = 'hello';
