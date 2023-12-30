@@ -14,8 +14,8 @@ import * as Joi from 'joi';
     validationSchema: Joi.object({
       NODE_ENV: Joi.string()
         .default('development'),
-      HELLO_VARIABLE: Joi.string()
-        .required(),
+      LOG_LEVEL: Joi.string()
+        .default('info'),
     }),
   }), AuthModule],
   controllers: [AppController],
