@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import Organization from './organization.model';
 import { ConfigService } from '@nestjs/config';
+import { logger } from '../logging/logger';
 
 @Injectable()
 export class OrganizationService {
@@ -16,7 +17,7 @@ export class OrganizationService {
     }
 
     getOrganizations(): Organization[] {
-        console.log(this.configService.get<string>('environment'));        
+        logger.debug('My first log message');
         return [{
             id: "1",
             name: 'Starter Kit Organization',
