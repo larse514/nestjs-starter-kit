@@ -2,25 +2,36 @@ import { Injectable } from '@nestjs/common';
 import Organization from './organization.model';
 import { ConfigService } from '@nestjs/config';
 import { logger } from '../logging/logger';
+import { OrganizationInstrumentation } from './organization.instrumentation';
 
 @Injectable()
 export class OrganizationService {
+  constructor(
+    private configService: ConfigService,
+    private readonly organizationInstrumentation: OrganizationInstrumentation,
+  ) { }
 
-    constructor(private configService: ConfigService) { }
+  updateOrganization(id: string, name: string): Organization {
+    return new Organization(id, name);
+  }
 
-    updateOrganization(id: string, name: string): Organization {
-        return new Organization(id, name)
+  createOrganization(name: string): Organization {
+    try {
+
+      this.organizationInstrumentation.organizationCreateSucceeded();
+      return new Organization('2', name);
+    } catch (error) {
+      this.organizationInstrumentation.organizationCreateFailed();
     }
+  }
 
-    createOrganization(name: string): Organization {
-        return new Organization("2", name)
-    }
-
-    getOrganizations(): Organization[] {
-        logger.debug('My first log message');
-        return [{
-            id: "1",
-            name: 'Starter Kit Organization',
-        },];
-    }
+  getOrganizations(): Organization[] {
+    logger.debug(this.configService.get<string>('environment'));
+    return [
+      {
+        id: '1',
+        name: 'Starter Kit Organization',
+      },
+    ];
+  }
 }

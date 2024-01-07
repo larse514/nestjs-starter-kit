@@ -5,18 +5,18 @@ import { RolesGuard } from './rbac/roles.guard';
 import { JwtProvider } from './jwt.provider';
 
 @Module({
-    providers: [
-        AuthGuard,
-        RolesGuard,
-        JwtProvider,
-        {
-            provide: APP_GUARD,
-            useExisting: AuthGuard,
-        },
-        {
-            provide: APP_GUARD,
-            useExisting: RolesGuard,
-        },
-    ],
+  providers: [
+    AuthGuard,
+    RolesGuard,
+    JwtProvider,
+    {
+      provide: APP_GUARD,
+      useExisting: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useExisting: RolesGuard,
+    },
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

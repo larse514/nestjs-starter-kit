@@ -8,17 +8,19 @@ import configuration from './config/configuration';
 import * as Joi from 'joi';
 
 @Module({
-  imports: [OrganizationModule, ConfigModule.forRoot({
-    load: [configuration],
-    isGlobal: true,
-    validationSchema: Joi.object({
-      NODE_ENV: Joi.string()
-        .default('development'),
-      LOG_LEVEL: Joi.string()
-        .default('info'),
+  imports: [
+    OrganizationModule,
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+      validationSchema: Joi.object({
+        NODE_ENV: Joi.string().default('development'),
+        LOG_LEVEL: Joi.string().default('info'),
+      }),
     }),
-  }), AuthModule],
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
