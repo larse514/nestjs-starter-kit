@@ -8,6 +8,7 @@ import { RolesGuardFake } from './fakes/roles.guard.fake';
 import { RolesGuard } from '../src/auth/rbac/roles.guard';
 import { MockInstrumentation } from './mocks/organization.instrumentation.mock';
 import { OrganizationInstrumentation } from '../src/organization/organization.instrumentation';
+import { LoggerProvider } from '../src/logging/logger.provider';
 
 describe('OrganizationController (e2e)', () => {
   let app: INestApplication;
@@ -15,6 +16,7 @@ describe('OrganizationController (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
+      // providers: [LoggerProvider],
       // providers: [OrganizationInstrumentation, {
       //   provide: OrganizationInstrumentation,
       //   useValue: mockInstrumentation,

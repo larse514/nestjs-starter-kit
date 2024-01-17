@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import Organization from './organization.model';
 import { ConfigService } from '@nestjs/config';
-import { logger } from '../logging/logger';
 import { OrganizationInstrumentation } from './organization.instrumentation';
+import { LoggerProvider } from '../logging/logger.provider';
 
 @Injectable()
 export class OrganizationService {
   constructor(
     private configService: ConfigService,
     private readonly organizationInstrumentation: OrganizationInstrumentation,
+    private readonly logger: LoggerProvider
   ) { }
 
   updateOrganization(id: string, name: string): Organization {
@@ -26,7 +27,7 @@ export class OrganizationService {
   }
 
   getOrganizations(): Organization[] {
-    logger.debug(this.configService.get<string>('environment'));
+    this.logger.debug(this.configService.get<string>('environment'));
     return [
       {
         id: '1',

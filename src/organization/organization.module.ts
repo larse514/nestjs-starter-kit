@@ -5,9 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import { CloudwatchModule } from '../metrics/cloudwatch.module';
 import { OrganizationInstrumentation } from './organization.instrumentation';
 import { CloudwatchPublisher } from '../metrics/cloudwatch.publisher';
+import { LoggerModule } from '../logging/logger.module';
 
 @Module({
-  imports: [CloudwatchModule],
+  imports: [CloudwatchModule, LoggerModule],
   controllers: [OrganizationController],
   providers: [
     OrganizationService,

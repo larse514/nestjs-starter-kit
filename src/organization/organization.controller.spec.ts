@@ -5,6 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from '../config/configuration';
 import { OrganizationInstrumentation } from './organization.instrumentation';
 import { MockInstrumentation } from '../../test/mocks/organization.instrumentation.mock';
+import { LoggerProvider } from '../logging/logger.provider';
+import { ConsoleLogger } from '@nestjs/common';
+import { LoggerModule } from '../logging/logger.module';
+import { LoggerProviderFake } from '../logging/logger.provider.fake';
 
 describe('OrganizationController', () => {
   let controller: OrganizationController;
@@ -17,6 +21,7 @@ describe('OrganizationController', () => {
         ConfigModule.forRoot({
           load: [configuration],
         }),
+        LoggerModule,
       ],
       controllers: [OrganizationController],
       providers: [
@@ -24,6 +29,11 @@ describe('OrganizationController', () => {
         {
           provide: OrganizationInstrumentation,
           useValue: mockInstrumentation,
+        },
+        LoggerProvider,
+        {
+          provide: LoggerProvider,
+          useValue: new LoggerProviderFake(),
         },
       ],
     }).compile();

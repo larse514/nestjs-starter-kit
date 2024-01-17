@@ -4,10 +4,14 @@ import { OrganizationService } from './organization.service';
 import { CreateOrganizationDTO } from './organization.dto';
 import { Roles } from '../auth/rbac/roles.decorator';
 import { Role } from '../auth/rbac/roles';
+import { LoggerProvider } from '../logging/logger.provider';
 
 @Controller('organizations')
 export class OrganizationController {
-  constructor(private readonly orgService: OrganizationService) {}
+  constructor(private readonly orgService: OrganizationService,
+    private readonly logger: LoggerProvider
+  ) {
+  }
 
   @Post()
   @Roles(Role.Admin)
@@ -27,6 +31,7 @@ export class OrganizationController {
 
   @Get()
   getOrganizations(): Organization[] {
+    this.logger.info('Getting organizations');
     return this.orgService.getOrganizations();
   }
 }
