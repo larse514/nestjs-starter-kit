@@ -23,6 +23,7 @@ export class OrganizationService {
       return new Organization('2', name);
     } catch (error) {
       this.organizationInstrumentation.organizationCreateFailed();
+      throw error;
     }
   }
 
